@@ -1,16 +1,16 @@
 language: python
 
-matrix:
-  include:
-    - name: CUDA 10
-      env:
-        - CUDA=10.0
-        - CUDA_SHORT=10.0
-        - UBUNTU_VERSION=ubuntu1804
-      dist: bionic
+before-install:
+  - wget https://repo.continuum.io/archive/Anaconda3-5.2.0-Linux-x86_64.sh
+  - bash Anaconda3-5.2.0-Linux-x86_64.sh
+  - echo 'export PATH="/home/wangfei/anaconda3/bin:$PATH"'>>~/.bashrc
+  - source ~/.bashrc
+  - conda create -n et python=3.6
+  - source activate et
 
 install:
-  - pip install tensorflow==1.15
+  - conda install cudatoolkit=10.0 cudnn=7.4
+  - pip install tensorflow_gpu==1.15
   - pip install -e python
 
 script:
