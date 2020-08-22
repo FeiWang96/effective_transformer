@@ -22,11 +22,10 @@ before-install:
 
   - conda create -n et python=3.6
   - conda activate et
-  - conda config --append channels conda-forge
 
 install:
   - conda install cudatoolkit=10.0
-  - conda install cudnn=7.4
+  - conda install cudnn=7.4.1
   - pip install tensorflow_gpu==1.15
   - pip install -e python
 
