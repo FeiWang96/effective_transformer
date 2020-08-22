@@ -27,6 +27,8 @@ before-install:
 #
 #  - conda create -n et python=3.6
 #  - conda activate et
+  - sudo yum install nvidia-docker
+  - docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
   - docker pull tensorflow/tensorflow
   - docker run -it --rm --runtime=nvidia tensorflow/tensorflow:1.15-gpu python
 
