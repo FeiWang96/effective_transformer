@@ -2,7 +2,7 @@ language: python
 
 install:
   - pip install tensorflow==1.15
-  - python python/setup.py
+  - python python/setup.py install
 
 script:
   - python sample/tensorflow/benchmark.py
