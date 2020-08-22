@@ -4,29 +4,34 @@ python:
   # We don't actually use the Travis Python, but this keeps it organized.
   - "3.6"
 
-before-install:
-  # We do this conditionally because it saves us some downloading if the
-  # version is the same.
-  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
-      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
-    else
-      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-    fi
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - source "$HOME/miniconda/etc/profile.d/conda.sh"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  # Useful for debugging any issues with conda
-  - conda info -a
+services:
+  - docker
 
-  - conda create -n et python=3.6
-  - conda activate et
+before-install:
+#  # We do this conditionally because it saves us some downloading if the
+#  # version is the same.
+#  - if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+#      wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+#    else
+#      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+#    fi
+#  - bash miniconda.sh -b -p $HOME/miniconda
+#  - source "$HOME/miniconda/etc/profile.d/conda.sh"
+#  - hash -r
+#  - conda config --set always_yes yes --set changeps1 no
+#  - conda update -q conda
+#  # Useful for debugging any issues with conda
+#  - conda info -a
+#
+#  - conda create -n et python=3.6
+#  - conda activate et
+  - docker pull tensorflow/tensorflow
+  - docker run -it --rm --runtime=nvidia tensorflow/tensorflow:1.15-gpu python
 
 install:
-  - conda install cudatoolkit=10.0
-  - conda install cudnn=7.6.5
-  - pip install tensorflow_gpu==1.15
+#  - conda install cudatoolkit=10.0
+#  - conda install cudnn=7.6.5
+#  - pip install tensorflow_gpu==1.15
   - pip install -e python
 
 script:
